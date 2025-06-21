@@ -101,5 +101,45 @@ return (
 );
 ```
 
+## 10. JSX - Fragment
+### O que são `<> </>` e `<Fragment> </Fragment>`?
+
+No React, tanto `<> </>` quanto `<Fragment> </Fragment>` são utilizados para envolver múltiplos elementos JSX sem adicionar um elemento extra ao DOM.
+
+Por padrão, um componente React deve retornar **apenas um elemento**. Se houver múltiplos elementos a serem retornados, é necessário envolvê-los dentro de um contênier. Tradicionalmente, seria comum usar uma `<div>`, mas isso pode criar elementos desnecessários no DOM, o que não é sempre desejado.
+
+O `Fragment` foi criado para resolver esse problema. Ele permite agrupar uma lista de filhos sem adicionar nós extras na árvore do DOM.
+
+Exemplo usando `<Fragment>`:
+
+```jsx
+import React, { Fragment } from 'react';
+
+function MeuComponente() {
+  return (
+    <Fragment>
+      <h1>Título</h1>
+      <p>Parágrafo</p>
+    </Fragment>
+  );
+}
+```
+
+O React também fornece uma sintaxe abreviada para o `Fragment`, que é `<> </>`. Ela tem a mesma funcionalidade:
+
+```jsx
+function MeuComponente() {
+  return (
+    <>
+      <h1>Título</h1>
+      <p>Parágrafo</p>
+    </>
+  );
+}
+```
+
+Ambas as abordagens são equivalentes em funcionalidade, a diferença é apenas a forma de escrita.
+
+> Obs: A sintaxe curta `<> </>` não permite passar props, como a prop `key` em listas. Nestes casos, é necessário usar `<Fragment key={algumaCoisa}>`.
 
 
