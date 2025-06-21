@@ -16,13 +16,13 @@ function App() {
   ];
 
   return (
-    <>
-      <ul>
-        {/* Utiliza JSX para exibir dados dinâmicos do array 'atividades' no componente */}
-        <li>{atividades[0].id} - {atividades[0].descricao}</li>
-        <li>{atividades[1].id} - {atividades[1].descricao}</li>
-      </ul>
-    </>
+      <div className="mt-3">
+          <ul className="list-group">
+            {/* Utiliza JSX para exibir dados dinâmicos do array 'atividades' no componente */}
+            <li className="list-group-item">{atividades[0].id} - {atividades[0].descricao}</li>
+            <li className="list-group-item">{atividades[1].id} - {atividades[1].descricao}</li>
+          </ul>
+      </div>
   );
 }
 
