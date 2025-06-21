@@ -50,4 +50,56 @@ O `package.json` é o arquivo de configuração do projeto Node.js/React. Ele gu
 * **Scripts:** comandos que podem ser executados, como `start`, `build`, `test`, etc.
 * **Configurações adicionais:** de ferramentas que você usa no projeto.
 
+## 8. JSX
+
+### JSX — JavaScript XML
+JSX (JavaScript XML) é uma extensão de sintaxe do JavaScript utilizada no React para descrever como a interface de usuário deve ser renderizada. Com JSX, podemos escrever estruturas semelhantes ao HTML dentro do código JavaScript, o que torna o código mais legível e próximo do que será exibido na tela.
+
+### Vantagens do JSX
+- Sintaxe familiar para desenvolvedores web.
+- Melhor integração entre lógica e apresentação.
+- Validação de sintaxe em tempo de compilação.
+
+### Diferença entre `class` e `className`
+No HTML padrão, utilizamos o atributo `class` para definir classes CSS:
+```html
+<div class="container"></div>
+```
+No React (e no JSX), **não podemos usar `class`**, pois `class` é uma palavra reservada do JavaScript. Por isso, utilizamos `className`:
+```jsx
+<div className="container"></div>
+```
+O comportamento final é o mesmo — o elemento terá a classe CSS aplicada. A mudança é apenas na sintaxe, devido ao conflito de palavras reservadas em JavaScript.
+
+### Uso de `{}` no React
+
+Dentro do JSX, as chaves `{}` são usadas para interpolar expressões JavaScript. Sempre que você precisa inserir um valor dinâmico, executar uma função ou utilizar variáveis dentro do JSX, você usa as chaves.
+
+### Exemplo com variável:
+
+```jsx
+const nome = 'Maria';
+
+return (
+  <h1>Olá, {nome}!</h1>
+);
+```
+
+As chaves podem conter qualquer expressão válida em JavaScript: chamadas de função, operações aritméticas, condicionais (como operador ternário), etc.
+
+### Exemplo com função e operador ternário:
+
+```jsx
+const saudacao = (nome) => `Bem-vinda, ${nome}!`;
+const estaLogado = true;
+
+return (
+  <div>
+    <h1>{saudacao('Maria')}</h1>
+    <p>{estaLogado ? 'Você está logado' : 'Por favor, faça login'}</p>
+  </div>
+);
+```
+
+
 
