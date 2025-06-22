@@ -16,14 +16,33 @@ function App() {
   ];
 
   return (
-      <div className="mt-3">
+      <>
+        <form>
+          <input type="number" id="id" placeholder="ID" />
+          <input type="text" id="descricao" placeholder="Descrição" />
+          <button>Adicionar</button>
+        </form>
+        <div className="mt-3">
           <ul className="list-group">
-            {/* Utiliza JSX para exibir dados dinâmicos do array 'atividades' no componente */}
-            <li className="list-group-item">{atividades[0].id} - {atividades[0].descricao}</li>
-            <li className="list-group-item">{atividades[1].id} - {atividades[1].descricao}</li>
+            {atividades.map(a => (
+                <li key={a.id} className="list-group-item">{a.id} - {a.descricao}</li>
+            ))}
           </ul>
-      </div>
+        </div>
+      </>
   );
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+

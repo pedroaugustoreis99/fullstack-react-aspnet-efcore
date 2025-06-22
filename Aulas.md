@@ -142,4 +142,80 @@ Ambas as abordagens são equivalentes em funcionalidade, a diferença é apenas 
 
 > Obs: A sintaxe curta `<> </>` não permite passar props, como a prop `key` em listas. Nestes casos, é necessário usar `<Fragment key={algumaCoisa}>`.
 
+## 11. Install Bootstrap
+Para adicionar o **Bootstrap** ao projeto, foi utilizado o seguinte comando:
+
+```bash
+npm install bootstrap
+```
+
+Também foi instalado o **react-bootstrap** com o comando
+```bash
+npm install bootstrap
+```
+ 
+## 13. Atividade Map
+Quando trabalhamos com listas de dados no React, é muito comum termos um array de objetos que precisamos exibir na tela. Para isso, usamos o método `map` do JavaScript, que permite transformar cada item do array em um elemento React.
+
+---
+
+### Exemplo Prático
+
+Suponha que temos o seguinte array de objetos:
+
+```javascript
+const usuarios = [
+  { id: 1, nome: 'Alice' },
+  { id: 2, nome: 'Bob' },
+  { id: 3, nome: 'Charlie' }
+];
+```
+
+Queremos renderizar esses nomes na tela. Podemos usar `map` assim:
+
+```jsx
+function ListaDeUsuarios() {
+  return (
+    <div>
+      <h2>Lista de Usuários</h2>
+      <ul>
+        {usuarios.map((usuario) => (
+          <li key={usuario.id}>{usuario.nome}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+### O que está acontecendo:
+
+- `usuarios.map()` percorre cada objeto do array.
+- Para cada `usuario`, retorna um elemento `<li>` com o nome.
+- Cada item tem uma `key` única: `usuario.id`.
+
+---
+
+## Por que usar a prop `key`
+
+A prop `key` é necessária quando renderizamos listas no React porque:
+
+1. **Ajuda na performance:** O React usa a `key` para identificar quais itens mudaram, foram adicionados ou removidos.
+2. **Evita bugs visuais:** Sem a `key`, o React pode confundir os elementos e renderizar errado quando o array muda.
+3. **Deve ser única por item:** O ideal é usar um identificador único (como um `id`) que não muda.
+
+### Exemplo de problema sem `key`:
+
+Se o array mudar (ex.: adicionar ou remover um item), o React pode reutilizar elementos antigos de forma errada, causando comportamentos inesperados na UI.
+
+
+
+
+
+
+
+
+
+
+
 
