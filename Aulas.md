@@ -208,6 +208,77 @@ A prop `key` é necessária quando renderizamos listas no React porque:
 
 Se o array mudar (ex.: adicionar ou remover um item), o React pode reutilizar elementos antigos de forma errada, causando comportamentos inesperados na UI.
 
+## 14. AddAtividade
+A grande diferença do React é que ele possui um conceito chamado **estado (state)** e **re-renderização automática**. Sempre que o estado muda, o React atualiza o DOM automaticamente.
+### Analisando o seguinte código
+
+```javascript
+function addAtividade(e) {
+    e.preventDefault();
+    const atividade = {
+        id: document.getElementById("id").value,
+        descricao: document.getElementById("descricao").value
+    }
+    atividades.push(atividade);
+    console.log(atividades);
+}
+
+<form>
+  <input type="number" id="id" placeholder="ID" />
+  <input type="text" id="descricao" placeholder="Descrição" />
+  <button onClick={addAtividade}>Adicionar</button>
+</form>
+
+<div className="mt-3">
+  <ul className="list-group">
+    {atividades.map(a => (
+      <li key={a.id} className="list-group-item">{a.id} - {a.descricao}</li>
+    ))}
+  </ul>
+</div>
+```
+
+### O que o código faz:
+
+- Existe uma função `addAtividade` que adiciona uma nova atividade em um array chamado `atividades`.
+- O `console.log(atividades)` mostra que o array é atualizado.
+- No entanto, a interface (HTML) **não é atualizada** automaticamente.
+
+### Por que o HTML não é atualizado?
+
+O React não sabe que o array `atividades` foi alterado porque o array está sendo manipulado diretamente (com `push`). Em React, o que faz o componente re-renderizar é a mudança de **estado**.
+
+Quando você usa um estado (por exemplo, com o `useState`), o React observa as mudanças e atualiza o DOM automaticamente. Como `atividades` é uma variável comum e não um estado do React, ele não tem como saber que o array foi alterado.
+
+### Explicando o atributo `onClick`
+
+O `onClick` é um **event handler** do React, ou seja, ele define qual função será chamada quando o elemento é clicado.
+
+### Quando usamos:
+
+```jsx
+<button onClick={addAtividade}>Adicionar</button>
+```
+
+Estamos passando a referência da função `addAtividade` para o React, que vai chamá-la quando o clique ocorrer.
+
+### Se usássemos:
+
+```jsx
+<button onClick={addAtividade()}>Adicionar</button>
+```
+
+Nesse caso, a função `addAtividade` seria chamada imediatamente durante a renderização do componente, o que não é o comportamento desejado.
+
+### Forma correta:
+
+- Passar a função SEM invocar: `onClick={addAtividade}`.
+- Se for necessário passar parâmetros, use arrow function:
+
+```jsx
+<button onClick={(e) => addAtividade(e, param)}>Adicionar</button>
+```
+
 
 
 

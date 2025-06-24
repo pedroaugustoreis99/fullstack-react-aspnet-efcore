@@ -15,12 +15,26 @@ function App() {
     }
   ];
 
+    {/*
+      * O objetivo dessa função é demonstrar que o valor do array atividades é alterado
+      * Porém não altera o DOM
+      */}
+  function addAtividade(e) {
+      e.preventDefault();
+      const atividade = {
+          id: document.getElementById("id").value,
+          descricao: document.getElementById("descricao").value
+      }
+      atividades.push(atividade);
+      console.log(atividades);
+  }
+
   return (
       <>
         <form>
           <input type="number" id="id" placeholder="ID" />
           <input type="text" id="descricao" placeholder="Descrição" />
-          <button>Adicionar</button>
+          <button onClick={addAtividade}>Adicionar</button>
         </form>
         <div className="mt-3">
           <ul className="list-group">
