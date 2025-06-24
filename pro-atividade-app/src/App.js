@@ -1,32 +1,25 @@
 import './App.css';
+import {useState} from "react";
 
 function App() {
-  /*
-   * Um array de objetos normal para demonstrar algumas funcionalidades básicas do JSX
-   */
-  const atividades = [
-    {
-      id: 1,
-      descricao: "Ler HQ de the walking dead"
-    },
-    {
-      id: 2,
-      descricao: "Ir pro Accioly assistir atlético x volta redonda"
-    }
-  ];
+    const [atividades, setAtividades] = useState([
+        {
+            id: 1,
+            descricao: "Ler HQ de the walking dead"
+        },
+        {
+            id: 2,
+            descricao: "Ir pro Accioly assistir atlético x volta redonda"
+        }
+    ]);
 
-    {/*
-      * O objetivo dessa função é demonstrar que o valor do array atividades é alterado
-      * Porém não altera o DOM
-      */}
   function addAtividade(e) {
       e.preventDefault();
       const atividade = {
           id: document.getElementById("id").value,
           descricao: document.getElementById("descricao").value
       }
-      atividades.push(atividade);
-      console.log(atividades);
+      setAtividades([...atividades, atividade]);
   }
 
   return (

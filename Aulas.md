@@ -279,6 +279,77 @@ Nesse caso, a função `addAtividade` seria chamada imediatamente durante a rend
 <button onClick={(e) => addAtividade(e, param)}>Adicionar</button>
 ```
 
+## 14. Hook useState
+
+### O que é um Hook?
+
+Hooks são funções especiais introduzidas no React a partir da versão 16.8 que permitem **usar o estado e outros recursos do React em componentes funcionais**.
+
+Antes dos Hooks, só componentes de classe podiam ter estado e acessar o ciclo de vida. Com os Hooks, podemos escrever componentes com funções simples e ainda assim aproveitar todo o poder do React.
+
+Existem vários Hooks, como:
+
+- `useState`
+- `useEffect`
+- `useContext`
+- `useRef`, entre outros.
+
+### O que é o `useState`
+
+O `useState` é um dos Hooks mais usados. Ele permite criar uma variável de estado dentro de um componente funcional.
+
+Quando você altera o valor do estado com `setState`, o React automaticamente re-renderiza o componente com o novo valor.
+
+#### Sintaxe básica:
+
+```javascript
+const [valor, setValor] = useState(valorInicial);
+```
+
+- `valor`: é a variável que guarda o estado atual.
+- `setValor`: é a função que atualiza o valor e avisa o React que o componente precisa ser re-renderizado.
+
+### Exemplo simples de `useState`
+
+Vamos criar um contador:
+
+```javascript
+import React, { useState } from 'react';
+
+function Contador() {
+  const [contador, setContador] = useState(0);
+
+  function incrementar() {
+    setContador(contador + 1);
+  }
+
+  return (
+    <div>
+      <p>Você clicou {contador} vezes</p>
+      <button onClick={incrementar}>Clique aqui</button>
+    </div>
+  );
+}
+
+export default Contador;
+```
+
+### Explicação:
+
+- `useState(0)` cria o estado `contador` com valor inicial `0`.
+- `setContador(contador + 1)` atualiza o estado e o React re-renderiza o componente.
+- Sempre que clicamos no botão, o contador aumenta.
+
+---
+
+#### Observações importantes sobre `useState`
+
+- Nunca altere o estado diretamente (ex: `contador++`). Use sempre o `setContador`.
+- Cada vez que você chama o setter, o componente é re-renderizado automaticamente.
+- Podemos ter vários `useState` dentro do mesmo componente para controlar estados diferentes.
+
+
+
 
 
 
