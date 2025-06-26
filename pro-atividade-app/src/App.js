@@ -24,24 +24,25 @@ function App() {
 
   return (
       <>
-        <form className="row g-3">
-            <div className="col-sm-6">
-                <input type="number" className="form-control" id="id" placeholder="ID" />
-            </div>
-            <div className="col-sm-6">
-                <input type="text" id="descricao" className="form-control" placeholder="Descrição" />
-            </div>
-            <div className="col-12 d-flex justify-content-end">
-                <button onClick={addAtividade} className="btn btn-outline-success">Adicionar</button>
-            </div>
-        </form>
-        <div className="mt-3">
-          <ul className="list-group">
-            {atividades.map(a => (
-                <li key={a.id} className="list-group-item">{a.id} - {a.descricao}</li>
-            ))}
-          </ul>
-        </div>
+          <form className="row g-3 mb-2">
+              <div className="col-sm-6">
+                  <input type="number" className="form-control" id="id" placeholder="ID"/>
+              </div>
+              <div className="col-sm-6">
+                  <input type="text" id="descricao" className="form-control" placeholder="Descrição"/>
+              </div>
+              <div className="col-12 d-flex justify-content-end">
+                  <button onClick={addAtividade} className="btn btn-outline-success">Adicionar</button>
+              </div>
+          </form>
+
+          {atividades.map(a => (
+              <div className="card mb-2 shadow-sm" key={a.id}>
+                  <div className="card-body">
+                      <p className="card-text">{a.id} - {a.descricao}</p>
+                  </div>
+              </div>
+          ))}
       </>
   );
 }
