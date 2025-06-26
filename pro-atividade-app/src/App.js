@@ -24,10 +24,16 @@ function App() {
 
   return (
       <>
-        <form>
-          <input type="number" id="id" placeholder="ID" />
-          <input type="text" id="descricao" placeholder="Descrição" />
-          <button onClick={addAtividade}>Adicionar</button>
+        <form className="row g-3">
+            <div className="col-sm-6">
+                <input type="number" className="form-control" id="id" placeholder="ID" />
+            </div>
+            <div className="col-sm-6">
+                <input type="text" id="descricao" className="form-control" placeholder="Descrição" />
+            </div>
+            <div className="col-12 d-flex justify-content-end">
+                <button onClick={addAtividade} className="btn btn-outline-success">Adicionar</button>
+            </div>
         </form>
         <div className="mt-3">
           <ul className="list-group">

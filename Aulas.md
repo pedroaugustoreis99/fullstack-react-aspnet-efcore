@@ -279,7 +279,7 @@ Nesse caso, a função `addAtividade` seria chamada imediatamente durante a rend
 <button onClick={(e) => addAtividade(e, param)}>Adicionar</button>
 ```
 
-## 14. Hook useState
+## 15. Hook useState
 
 ### O que é um Hook?
 
