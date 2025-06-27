@@ -39,6 +39,10 @@ function App() {
           {atividades.map(a => (
               <div className="card mb-2 shadow-sm" key={a.id}>
                   <div className="card-body">
+                      <div className="d-flex justify-content-between">
+                          <h5 className="card-title"><span className="badge rounded-pill bg-primary">{a.id}</span> - título</h5>
+                          <h6>Prioridade: </h6>
+                      </div>
                       <p className="card-text">{a.id} - {a.descricao}</p>
                   </div>
               </div>
