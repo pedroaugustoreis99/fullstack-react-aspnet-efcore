@@ -41,7 +41,7 @@ function App() {
                   <div className="card-body">
                       <div className="d-flex justify-content-between">
                           <h5 className="card-title"><span className="badge rounded-pill bg-primary">{a.id}</span> - título</h5>
-                          <h6>Prioridade: </h6>
+                          <h6>Prioridade: <i className="fa-solid fa-face-smile"></i></h6>
                       </div>
                       <p className="card-text">{a.id} - {a.descricao}</p>
                   </div>

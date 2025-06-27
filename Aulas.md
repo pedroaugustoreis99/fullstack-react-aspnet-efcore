@@ -348,9 +348,39 @@ export default Contador;
 - Cada vez que você chama o setter, o componente é re-renderizado automaticamente.
 - Podemos ter vários `useState` dentro do mesmo componente para controlar estados diferentes.
 
+## 19. FontAwesome
+Foi executado o seguinte comando na raiz da aplicação 
+```bash
+npm install --save @fortawesome/fontawesome-free
+```
 
+Esse comando instala o pacote `@fortawesome/fontawesome-free` como uma **dependência de produção** do seu projeto. Este pacote contém os ícones gratuitos da biblioteca **Font Awesome**, que podem ser usados em componentes React como elementos visuais (ícones de menu, redes sociais, etc.).
+- `--save`: adiciona automaticamente o pacote à seção `dependencies` do `package.json` (opcional a partir do npm 5).
+- O pacote é baixado na pasta `node_modules`.
 
+Linha adicionada em `/src/index.css`
+```css
+@import url('../node_modules/@fortawesome/fontawesome-free/css/all.min.css');
+```
 
+#### O que essa linha faz?
+Essa linha importa diretamente o arquivo CSS do Font Awesome para o seu projeto React. Especificamente:
+
+- O arquivo `all.min.css` inclui todos os estilos e classes de ícones disponíveis no pacote Font Awesome.
+- Ao importar esse arquivo no `index.css`, todos os componentes da sua aplicação podem utilizar os ícones com classes como:
+  ```html
+  <i class="fas fa-check"></i>
+  ```
+
+Trecho no `package.json`
+```json
+"dependencies": {
+  "@fortawesome/fontawesome-free": "^6.7.2"
+}
+```
+
+#### Por que isso aparece?
+Essa entrada no `package.json` indica que o projeto depende da versão `^6.7.2` do Font Awesome Free. O símbolo `^` significa que o npm poderá instalar qualquer versão **compatível** com a `6.x.x`, ou seja, atualizações de patch e minor releases, mas não versões maiores que possam quebrar compatibilidade.
 
 
 
