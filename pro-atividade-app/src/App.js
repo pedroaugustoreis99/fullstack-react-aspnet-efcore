@@ -16,7 +16,16 @@ function App() {
             descricao: "Ir pro Accioly assistir atlético x volta redonda"
         }
     ]);
+    function retornaAtividadeId() {
+        const todosOsIds = atividades.map(a => a.id);
+        if (todosOsIds.length === 0) {
+            return 1;
+        } else {
+            const maiorId = Math.max(...todosOsIds);
+            return maiorId + 1;
+        }
 
+    }
   function addAtividade(e) {
       e.preventDefault();
       const atividade = {
@@ -55,7 +64,7 @@ function App() {
       <>
           <form className="row g-3 mb-2">
               <div className="col-sm-4">
-                  <input type="number" className="form-control" id="id" placeholder="ID"/>
+                  <input type="number" className="form-control" id="id" readOnly value={retornaAtividadeId()} />
               </div>
               <div className="col-sm-8">
                   <select id="prioridade" className="form-select">
