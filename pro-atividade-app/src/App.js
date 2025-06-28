@@ -44,6 +44,10 @@ function App() {
                           <h6>Prioridade: <i className="fa-solid fa-face-smile"></i></h6>
                       </div>
                       <p className="card-text">{a.id} - {a.descricao}</p>
+                      <div className="d-flex justify-content-end">
+                          <button className="btn btn-sm btn-outline-primary"><i className="fas fa-pen"></i> editar</button>
+                          <button className="btn btn-sm btn-outline-danger ms-2"><i className="fas fa-trash"></i> excluir</button>
+                      </div>
                   </div>
               </div>
           ))}
