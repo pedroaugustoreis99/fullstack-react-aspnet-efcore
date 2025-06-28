@@ -28,6 +28,29 @@ function App() {
       setAtividades([...atividades, atividade]);
   }
 
+  function retornaPrioridade(prioridade) {
+      const prioridades = {
+          1: {
+              prioridade: "Baixa",
+              icone: "fa-solid fa-face-smile"
+          },
+          2: {
+              prioridade: "Normal",
+              icone: "fa-solid fa-face-meh"
+          },
+          3: {
+              prioridade: "Alta",
+              icone: "fa-solid fa-face-frown-open"
+          }
+      }
+      const prioridadeNaoDefinida = {
+          prioridade: "Não definida",
+          icone: ""
+      }
+      if (!prioridades[prioridade]) return prioridadeNaoDefinida;
+      return prioridades[prioridade];
+  }
+
   return (
       <>
           <form className="row g-3 mb-2">
@@ -58,7 +81,11 @@ function App() {
                   <div className="card-body">
                       <div className="d-flex justify-content-between">
                       <h5 className="card-title"><span className="badge rounded-pill bg-primary">{a.id}</span> - {a.titulo}</h5>
-                          <h6>Prioridade: <i className="fa-solid fa-face-smile"></i> {a.prioridade}</h6>
+                          <h6>
+                              Prioridade:
+                              <i className={retornaPrioridade(a.prioridade).icone + " mx-1"}></i>
+                              {retornaPrioridade(a.prioridade).prioridade}
+                          </h6>
                       </div>
                       <p className="card-text">{a.id} - {a.descricao}</p>
                       <div className="d-flex justify-content-end">
