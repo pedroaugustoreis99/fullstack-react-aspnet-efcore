@@ -24,7 +24,6 @@ function App() {
             const maiorId = Math.max(...todosOsIds);
             return maiorId + 1;
         }
-
     }
   function addAtividade(e) {
       e.preventDefault();
@@ -58,6 +57,11 @@ function App() {
       }
       if (!prioridades[prioridade]) return prioridadeNaoDefinida;
       return prioridades[prioridade];
+  }
+
+  function deletarAtividade(id) {
+        const atividadesFiltradas = atividades.filter(a => a.id !== id);
+        setAtividades([...atividadesFiltradas]);
   }
 
   return (
@@ -99,7 +103,11 @@ function App() {
                       <p className="card-text">{a.id} - {a.descricao}</p>
                       <div className="d-flex justify-content-end">
                           <button className="btn btn-sm btn-outline-primary"><i className="fas fa-pen"></i> editar</button>
-                          <button className="btn btn-sm btn-outline-danger ms-2"><i className="fas fa-trash"></i> excluir</button>
+                          <button
+                              className="btn btn-sm btn-outline-danger ms-2"
+                              onClick={() => deletarAtividade(a.id)}>
+                              <i className="fas fa-trash"></i> excluir
+                          </button>
                       </div>
                   </div>
               </div>
