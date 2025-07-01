@@ -382,7 +382,67 @@ Trecho no `package.json`
 #### Por que isso aparece?
 Essa entrada no `package.json` indica que o projeto depende da versão `^6.7.2` do Font Awesome Free. O símbolo `^` significa que o npm poderá instalar qualquer versão **compatível** com a `6.x.x`, ou seja, atualizações de patch e minor releases, mas não versões maiores que possam quebrar compatibilidade.
 
+## 26. Criando Components
+Por convenção, o nome de um componente React deve começar com letra **maiúscula** e seguir o padrão **PascalCase** (também conhecido como UpperCamelCase). Isso diferencia componentes de elementos HTML nativos, que são escritos em minúsculas.
+#### Exemplo:
 
+```jsx
+function MeuComponente() {
+  return <div>Conteúdo</div>;
+}
+```
+
+Se você escrever `meuComponente` com a primeira letra minúscula, o React entenderá que se trata de uma tag HTML nativa e não de um componente personalizado.
+
+#### Componente Pai e Componente Filho
+
+Um componente React pode **chamar** ou **utilizar** outro componente dentro de seu JSX. Isso é essencial para compor interfaces complexas a partir de peças menores e reutilizáveis.
+Suponha que você tenha a seguinte estrutura de arquivos na pasta `src/`:
+
+```
+src/
+├── App.js
+└── Saudacao.js
+```
+
+### `Saudacao.js` (Componente Filho)
+
+```jsx
+// Saudacao.js
+import React from 'react';
+
+function Saudacao() {
+  return <h1>Olá, mundo!</h1>;
+}
+
+export default Saudacao;
+```
+
+### `App.js` (Componente Pai)
+
+```jsx
+// App.js
+import React from 'react';
+import Saudacao from './Saudacao'; // importando o componente filho
+
+function App() {
+  return (
+    <div>
+      <Saudacao />
+      <p>Este é o componente principal.</p>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Neste exemplo:
+- O componente `Saudacao` foi criado em um arquivo separado.
+- Ele é **exportado** com `export default Saudacao`.
+- O componente `App` faz a **importação** usando `import Saudacao from './Saudacao'`.
+
+Quando construímos uma aplicação React com múltiplos componentes, muitas vezes é necessário que um componente "pai" envie **dados** ou **funções** para um componente "filho".
 
 
 
