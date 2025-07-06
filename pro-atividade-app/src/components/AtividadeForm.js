@@ -1,8 +1,8 @@
-﻿export default function AtividadeForm() {
+﻿export default function AtividadeForm(props) {
     return (
         <form className="row g-3 mb-2">
             <div className="col-sm-4">
-                <input type="number" className="form-control" id="id" readOnly value={retornaAtividadeId()} />
+                <input type="number" className="form-control" id="id" readOnly value={props.retornaAtividadeId()} />
             </div>
             <div className="col-sm-8">
                 <select id="prioridade" className="form-select">
@@ -19,7 +19,7 @@
                 <input type="text" id="descricao" className="form-control" placeholder="Descrição"/>
             </div>
             <div className="col-12 d-flex justify-content-end">
-                <button onClick={addAtividade} className="btn btn-outline-success">Adicionar</button>
+                <button onClick={props.addAtividade} className="btn btn-outline-success">Adicionar</button>
             </div>
         </form>
     );

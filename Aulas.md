@@ -444,7 +444,29 @@ Neste exemplo:
 
 Quando construímos uma aplicação React com múltiplos componentes, muitas vezes é necessário que um componente "pai" envie **dados** ou **funções** para um componente "filho".
 
+## 27. Props
+**Props** (abreviação de "properties") são a forma de passar **dados de um componente pai para um componente filho** no React. Elas tornam os componentes reutilizáveis com diferentes entradas.
 
+O componente filho recebe props como parâmetro:
+```jsx
+function Saudacao(props) {
+  return <h1>Olá, {props.nome}!</h1>;
+}
+```
+
+No componente pai, você usa o componente filho passando valores:
+
+```jsx
+function App() {
+  return <Saudacao nome="Maria" />;
+}
+```
+
+#### Explicando com mais detalhes
+
+- `props` é um objeto.
+- Cada atributo passado no JSX vira uma propriedade desse objeto.
+- Você pode passar qualquer tipo de dado: string, número, booleano, função, array, objeto, etc.
 
 
 

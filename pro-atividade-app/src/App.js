@@ -67,7 +67,10 @@ function App() {
 
   return (
       <>
-          <AtividadeForm />
+          <AtividadeForm
+            addAtividade={addAtividade}
+            retornaAtividadeId={retornaAtividadeId}
+          />
 
           {atividades.map(a => (
               <div className="card mb-2 shadow-sm" key={a.id}>
