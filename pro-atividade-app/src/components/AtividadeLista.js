@@ -1,4 +1,4 @@
-﻿export default function AtividadeLista({atividades, atividade, setAtividades}) {
+﻿export default function AtividadeLista({atividades, atividade, setAtividades, setAtividadeSelecionada}) {
     function retornaPrioridade(prioridade) {
         const prioridades = {
             1: {
@@ -26,6 +26,12 @@
         setAtividades([...atividadesFiltradas]);
     }
 
+    function selecionarAtividade(id) {
+        const atividade = atividades.filter(a => a.id === id);
+        console.log(...atividade);
+        setAtividadeSelecionada(...atividade);
+    }
+
     return (
         <div className="card mb-2 shadow-sm">
             <div className="card-body">
@@ -41,7 +47,12 @@
                 </div>
                 <p className="card-text">{atividade.id} - {atividade.descricao}</p>
                 <div className="d-flex justify-content-end">
-                    <button className="btn btn-sm btn-outline-primary"><i className="fas fa-pen"></i> editar</button>
+                    <button
+                        className="btn btn-sm btn-outline-primary"
+                        onClick={() => selecionarAtividade(atividade.id)}
+                    >
+                        <i className="fas fa-pen"></i> editar
+                    </button>
                     <button
                         className="btn btn-sm btn-outline-danger ms-2"
                         onClick={() => deletarAtividade(atividade.id)}>

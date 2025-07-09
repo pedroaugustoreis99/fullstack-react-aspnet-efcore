@@ -18,11 +18,13 @@ function App() {
             descricao: "Ir pro Accioly assistir atlético x volta redonda"
         }
     ]);
+    const [atividadeSelecionada, setAtividadeSelecionada] = useState({});
   return (
       <>
           <AtividadeForm
             atividades={atividades}
             setAtividades={setAtividades}
+            atividadeSelecionada={atividadeSelecionada}
           />
 
           {atividades.map(atividade => (
@@ -31,6 +33,7 @@ function App() {
                 atividades={atividades}
                 atividade={atividade}
                 setAtividades={setAtividades}
+                setAtividadeSelecionada={setAtividadeSelecionada}
               />
           ))}
       </>
