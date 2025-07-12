@@ -468,7 +468,49 @@ function App() {
 - Cada atributo passado no JSX vira uma propriedade desse objeto.
 - Você pode passar qualquer tipo de dado: string, número, booleano, função, array, objeto, etc.
 
+## 31. onChange InputHandler
+No React, o `onChange` é um evento que é disparado sempre que o valor de um `<input>`, `<select>` ou `<textarea>` muda.
+Quando você faz:
+````jsx
+<input type="number" onChange={handler} />
+````
+Você está dizendo que toda vez que o valor desse input mudar, a função `handler` será chamada
 
+`handler` é uma função que recebe um **evento** do React como argumento (por convenção chamado de `e`, abreviação de "event").
+```javascript
+function hanlder(e) {
+    console.log(e) // Evento que contém várias informações, inclusive sobre o input que disparou o evento
+}
+```
+
+`e.target` é uma referência ao **elemento DOM** que disparou o evento - no caso, o próprio `<input>`. Você pode acessar o name e o valor do input com:
+```javascript
+function handler(e) {
+    console.log(e.target.name);
+    console.log(e.target.value);
+}
+```
+
+Uma boa prática é utilizar o `useState` para armazenar o valor do input em um **estado**
+```javascript
+import { useState } from 'react';
+
+function MeuComponente() {
+  const [numero, setNumero] = useState(0); // Estado para guardar o valor do input
+
+  const handler = (e) => {
+    setNumero(Number(e.target.value)); // Converte para número, já que o input é do tipo number
+  };
+
+  return (
+    <input
+      type="number"
+      value={numero}
+      onChange={handler}
+    />
+  );
+}
+```
 
 
 

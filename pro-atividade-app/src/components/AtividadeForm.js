@@ -1,4 +1,7 @@
-﻿export default function AtividadeForm(props) {
+﻿import {useState} from "react";
+
+export default function AtividadeForm(props) {
+    const [atv, setAtv] = useState({});
     function addAtividade(e) {
         e.preventDefault();
         const atividade = {
@@ -19,10 +22,22 @@
         }
     }
 
+    function inputTextHandler(e) {
+        const {name, value} = e.target;
+        setAtv({...atv, [name]: value});
+    }
+
     return (
         <form className="row g-3 mb-2">
             <div className="col-sm-4">
-                <input type="number" className="form-control" id="id" readOnly value={retornaAtividadeId()} />
+                <input
+                    type="number"
+                    onChange={inputTextHandler}
+                    className="form-control"
+                    id="id"
+                    name="id"
+                    value={atv.id}
+                />
             </div>
             <div className="col-sm-8">
                 <select id="prioridade" className="form-select">
