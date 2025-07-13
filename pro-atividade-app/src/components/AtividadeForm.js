@@ -40,7 +40,7 @@ export default function AtividadeForm(props) {
                 />
             </div>
             <div className="col-sm-8">
-                <select id="prioridade" className="form-select">
+                <select id="prioridade" name="prioridade" onChange={inputTextHandler} value={atv.prioridade} className="form-select">
                     <option defaultValue="0">Selecione a prioridade</option>
                     <option value="1">Baixa</option>
                     <option value="2">Normal</option>
@@ -48,10 +48,10 @@ export default function AtividadeForm(props) {
                 </select>
             </div>
             <div className="col-sm-12">
-                <input type="text" id="titulo" className="form-control" placeholder="Título"/>
+                <input type="text" id="titulo" name="titulo" onChange={inputTextHandler} value={atv.titulo} className="form-control" placeholder="Título"/>
             </div>
             <div className="col-sm-12">
-                <input type="text" id="descricao" className="form-control" placeholder="Descrição"/>
+                <input type="text" id="descricao" name="descricao" onChange={inputTextHandler} value={atv.descricao} className="form-control" placeholder="Descrição"/>
             </div>
             <div className="col-12 d-flex justify-content-end">
                 <button onClick={addAtividade} className="btn btn-outline-success">Adicionar</button>
