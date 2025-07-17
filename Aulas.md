@@ -512,6 +512,59 @@ function MeuComponente() {
 }
 ```
 
+## 33. Hook useEffect
+O `useEffect` é um **hook do React** que permite executar efeitos colaterais em componentes funcionais. Ele é usado para lidar com **operações que afetam o mundo externo** ou o ciclo de vida do componente, como:
+
+- Buscar dados de uma API
+- Manipular o DOM diretamente
+- Criar/subscrever eventos
+- Iniciar ou limpar timers
+
+#### Sintaxe básica
+
+```jsx
+import { useEffect } from 'react';
+
+useEffect(() => {
+  // Código a ser executado
+}, [dependências]);
+```
+
+#### Funcionamento
+
+- O primeiro argumento é uma **função** (efeito colateral).
+- O segundo argumento é um **array de dependências**.
+  - Ele define **quando** o efeito será executado.
+
+#### Comportamentos baseados nas dependências
+
+| Dependências       | Comportamento                                                                          |
+|--------------------|----------------------------------------------------------------------------------------|
+| `[]`               | Executa **apenas uma vez**, após o primeiro render (comportamento de `componentDidMount`) |
+| `[var1, var2]`     | Executa quando **qualquer dependência mudar**                                          |
+| Omitido (`undefined`) | Executa após **todo render**                                                        |
+
+#### Exemplo completo
+
+```jsx
+import { useEffect, useState } from 'react';
+
+function Exemplo() {
+  const [contador, setContador] = useState(0);
+
+  useEffect(() => {
+    console.log('Contador mudou para:', contador);
+  }, [contador]);
+
+  return (
+    <button onClick={() => setContador(contador + 1)}>
+      Cliquei {contador} vezes
+    </button>
+  );
+}
+```
+
+
 
 
 

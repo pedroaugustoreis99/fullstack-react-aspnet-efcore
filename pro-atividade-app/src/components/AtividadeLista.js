@@ -28,7 +28,6 @@
 
     function selecionarAtividade(id) {
         const atividade = atividades.filter(a => a.id === id);
-        console.log(...atividade);
         setAtividadeSelecionada(...atividade);
     }
 

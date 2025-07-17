@@ -1,11 +1,16 @@
-﻿import {useState} from "react";
+﻿import { useState, useEffect } from "react";
 
 export default function AtividadeForm(props) {
     const [atv, setAtv] = useState({});
+
+    useEffect(() => {
+        console.log("useEffect funcionando")
+    }, [atv]);
+
     function addAtividade(e) {
         e.preventDefault();
         const atividade = {
-            id: document.getElementById("id").value,
+            id: retornaAtividadeId(),
             prioridade: document.getElementById("prioridade").value,
             titulo: document.getElementById("titulo").value,
             descricao: document.getElementById("descricao").value
@@ -29,17 +34,10 @@ export default function AtividadeForm(props) {
 
     return (
         <form className="row g-3 mb-2">
-            <div className="col-sm-4">
-                <input
-                    type="number"
-                    onChange={inputTextHandler}
-                    className="form-control"
-                    id="id"
-                    name="id"
-                    value={atv.id}
-                />
+            <div className="col-sm-9">
+                <input type="text" id="titulo" name="titulo" onChange={inputTextHandler} value={atv.titulo} className="form-control" placeholder="Título"/>
             </div>
-            <div className="col-sm-8">
+            <div className="col-sm-3">
                 <select id="prioridade" name="prioridade" onChange={inputTextHandler} value={atv.prioridade} className="form-select">
                     <option defaultValue="0">Selecione a prioridade</option>
                     <option value="1">Baixa</option>
@@ -48,10 +46,7 @@ export default function AtividadeForm(props) {
                 </select>
             </div>
             <div className="col-sm-12">
-                <input type="text" id="titulo" name="titulo" onChange={inputTextHandler} value={atv.titulo} className="form-control" placeholder="Título"/>
-            </div>
-            <div className="col-sm-12">
-                <input type="text" id="descricao" name="descricao" onChange={inputTextHandler} value={atv.descricao} className="form-control" placeholder="Descrição"/>
+                <textarea type="text" id="descricao" name="descricao" onChange={inputTextHandler} value={atv.descricao} className="form-control" placeholder="Descrição"></textarea>
             </div>
             <div className="col-12 d-flex justify-content-end">
                 <button onClick={addAtividade} className="btn btn-outline-success">Adicionar</button>
