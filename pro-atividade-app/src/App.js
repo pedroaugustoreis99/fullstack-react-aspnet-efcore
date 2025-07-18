@@ -25,6 +25,7 @@ function App() {
             atividades={atividades}
             setAtividades={setAtividades}
             atividadeSelecionada={atividadeSelecionada}
+            setAtividadeSelecionada={setAtividadeSelecionada}
           />
 
           {atividades.map(atividade => (

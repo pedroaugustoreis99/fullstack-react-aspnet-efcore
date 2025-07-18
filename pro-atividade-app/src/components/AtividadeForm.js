@@ -51,6 +51,14 @@ export default function AtividadeForm(props) {
 
     function handleCancelar() {
         setAtv(atividadeInicial);
+        props.setAtividadeSelecionada({});
+    }
+
+    function handleSalvarEdicao(e) {
+        e.preventDefault();
+        props.setAtividades(props.atividades.map(a => a.id === atv.id ? atv : a));
+        setAtv(atividadeInicial);
+        props.setAtividadeSelecionada({});
     }
 
     return (
@@ -74,7 +82,7 @@ export default function AtividadeForm(props) {
                     atv.id == 0 ?
                         <button onClick={addAtividade} className="btn btn-outline-success"><i className="fas fa-plus me-2"></i>Adicionar</button> :
                         <>
-                            <button onClick={addAtividade} className="btn btn-outline-success me-2"><i className="fas fa-plus me-2"></i>Salvar</button>
+                            <button onClick={handleSalvarEdicao} className="btn btn-outline-success me-2"><i className="fas fa-plus me-2"></i>Salvar</button>
                             <button onClick={handleCancelar} className="btn btn-outline-warning"><i className="fas fa- me-2"></i>Cancelar</button>
                         </>
                 }
