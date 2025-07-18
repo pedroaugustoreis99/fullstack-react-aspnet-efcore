@@ -11,7 +11,7 @@ export default function AtividadeForm(props) {
     const [atv, setAtv] = useState(atividadeAtual());
 
     useEffect(() => {
-        if (props.atividadeSelecionada.id !== 0)
+        if (props.atividadeSelecionada.id !== undefined)
             setAtv(props.atividadeSelecionada);
     }, [props.atividadeSelecionada]);
 
@@ -27,7 +27,7 @@ export default function AtividadeForm(props) {
     }
 
     function atividadeAtual() {
-        if (props.atividadeSelecionada.id !== 0) {
+        if (props.atividadeSelecionada.id !== undefined) {
             return props.atividadeSelecionada;
         } else {
             return atividadeInicial;
@@ -49,6 +49,10 @@ export default function AtividadeForm(props) {
         setAtv({...atv, [name]: value});
     }
 
+    function handleCancelar() {
+        setAtv(atividadeInicial);
+    }
+
     return (
         <form className="row g-3 mb-2">
             <div className="col-sm-9">
@@ -66,7 +70,14 @@ export default function AtividadeForm(props) {
                 <textarea type="text" id="descricao" name="descricao" onChange={inputTextHandler} value={atv.descricao} className="form-control" placeholder="Descrição"></textarea>
             </div>
             <div className="col-12 d-flex justify-content-end">
-                <button onClick={addAtividade} className="btn btn-outline-success">Adicionar</button>
+                {
+                    atv.id == 0 ?
+                        <button onClick={addAtividade} className="btn btn-outline-success"><i className="fas fa-plus me-2"></i>Adicionar</button> :
+                        <>
+                            <button onClick={addAtividade} className="btn btn-outline-success me-2"><i className="fas fa-plus me-2"></i>Salvar</button>
+                            <button onClick={handleCancelar} className="btn btn-outline-warning"><i className="fas fa- me-2"></i>Cancelar</button>
+                        </>
+                }
             </div>
         </form>
     );
