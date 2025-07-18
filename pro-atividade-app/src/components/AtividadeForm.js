@@ -1,11 +1,19 @@
 ﻿import { useState, useEffect } from "react";
 
+const atividadeInicial = {
+    id: 0,
+    titulo: '',
+    prioridade: 0,
+    descricao: ''
+}
+
 export default function AtividadeForm(props) {
-    const [atv, setAtv] = useState({});
+    const [atv, setAtv] = useState(atividadeAtual());
 
     useEffect(() => {
-        console.log("useEffect funcionando")
-    }, [atv]);
+        if (props.atividadeSelecionada.id !== 0)
+            setAtv(props.atividadeSelecionada);
+    }, [props.atividadeSelecionada]);
 
     function addAtividade(e) {
         e.preventDefault();
@@ -17,6 +25,15 @@ export default function AtividadeForm(props) {
         }
         props.setAtividades([...props.atividades, atividade]);
     }
+
+    function atividadeAtual() {
+        if (props.atividadeSelecionada.id !== 0) {
+            return props.atividadeSelecionada;
+        } else {
+            return atividadeInicial;
+        }
+    }
+
     function retornaAtividadeId() {
         const todosOsIds = props.atividades.map(a => a.id);
         if (todosOsIds.length === 0) {
