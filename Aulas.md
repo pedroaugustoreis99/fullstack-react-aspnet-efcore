@@ -564,6 +564,70 @@ function Exemplo() {
 }
 ```
 
+## 45. Explicando projeto
+Um projeto Web API no .NET geralmente inclui os seguintes arquivos e conceitos:
+
+### 1. `Program.cs`
+Este é o ponto de entrada da aplicação. Ele configura e inicia o servidor web:
+
+```csharp
+public static void Main(string[] args)
+{
+    CreateHostBuilder(args).Build().Run();
+}
+```
+
+Esse método inicia a aplicação. Já o `CreateHostBuilder` prepara o ambiente web e diz para usar a classe `Startup`.
+
+### 2. `Startup.cs`
+É onde a aplicação é **configurada**.
+
+####  ConfigureServices
+Registramos os serviços que a aplicação vai usar — por exemplo, suporte a **controllers** e ao **Swagger** (documentação da API):
+
+```csharp
+services.AddControllers();
+services.AddSwaggerGen(...);
+```
+
+####  Configure
+Definimos o **pipeline(sequência de etapas) de requisições HTTP**:
+
+```csharp
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+```
+
+Também ativamos o Swagger em ambiente de desenvolvimento para facilitar testes da API.
+
+### 3. Controllers
+Controllers são classes que definem os **endpoints** (as “rotas” da API).
+
+Exemplo: `WeatherForecastController.cs`
+
+```csharp
+[ApiController]
+[Route("[controller]")]
+public class WeatherForecastController : ControllerBase
+```
+
+Este controller responde à rota `/WeatherForecast` com dados simulados sobre o clima.
+
+### 4. Arquivos de Configuração
+
+- `appsettings.json`: contém configurações gerais (ex: logging, URLs permitidas).
+- `appsettings.Development.json`: sobrescreve as configs em ambiente de desenvolvimento.
+- `launchSettings.json`: define como o projeto será executado (URLs, ambiente, perfil de execução, etc).
+
+
+
+
+
+
+
 
 
 
