@@ -675,6 +675,56 @@ Fornece suporte às **ferramentas de linha de comando** (`dotnet ef`) no termina
 - Criar migrations com `dotnet ef migrations add`
 - Visualizar o modelo com `dotnet ef dbcontext info`
 
+## 55. Contexto de Dados
+O `DbContext` é uma classe fundamental do Entity Framework Core. Ele representa uma sessão com o banco de dados e permite realizar:
+
+- Consultas (`SELECT`)
+- Inserções (`INSERT`)
+- Atualizações (`UPDATE`)
+- Remoções (`DELETE`)
+
+### `DataContext.cs` – Criação do contexto de dados
+
+```csharp
+public class DataContext : DbContext
+{
+    public DataContext(DbContextOptions<DataContext> options) : base(options) { }
+
+    public DbSet<Atividade> Atividades { get; set; }
+}
+```
+
+- `DbSet<Atividade>` representa a tabela `Atividades` no banco de dados.
+
+### `appsettings.Development.json` – String de Conexão
+
+```json
+{
+  "ConnectionStrings": {
+    "Default": "Data source=ProAtividade.db"
+  }
+}
+```
+
+- Define a **string de conexão** usada pelo `DbContext` para localizar e conectar ao banco de dados SQLite.
+
+### `Startup.cs` – Injeção do `DataContext`
+
+```csharp
+services.AddDbContext<DataContext>(
+    options => options.UseSqlite(Configuration.GetConnectionString("Default"))
+);
+```
+
+- Lê a string de conexão chamada `"Default"` do arquivo `appsettings`.
+- Usa o banco de dados SQLite.
+- Registra o `DataContext` no sistema de injeção de dependência.
+
+### Como Funciona na Prática
+
+1. A aplicação inicia e carrega as configurações do `appsettings.Development.json`.
+2. O `DataContext` é registrado e configurado no `Startup.cs`.
+3. Em qualquer controller ou serviço, o `DataContext` pode ser injetado e usado para acessar os dados.
 
 
 
