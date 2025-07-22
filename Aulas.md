@@ -726,6 +726,42 @@ services.AddDbContext<DataContext>(
 2. O `DataContext` é registrado e configurado no `Startup.cs`.
 3. Em qualquer controller ou serviço, o `DataContext` pode ser injetado e usado para acessar os dados.
 
+## 56. Migrations e Update - Parte 1
+O comando abaixo é usado com o Entity Framework Core para criar a **primeira migração** do seu banco de dados com base no modelo definido no `DbContext`.
+```bash
+dotnet ef migrations add initial -o Data/Migrations
+```
+#### 🔹 `migrations add initial`
+Cria uma nova **migração** chamada `initial`. Esse nome é arbitrário, mas geralmente usa-se `initial` para a primeira migração.
+
+#### 🔹 `-o Data/Migrations`
+Especifica o **diretório de saída** onde os arquivos da migração serão salvos. Neste caso, os arquivos irão para a pasta `Data/Migrations`.
+
+### O Que Acontece ao Rodar Esse Comando?
+
+- O EF Core irá comparar os modelos definidos no `DbContext` (por exemplo, a entidade `Atividade`) com o banco de dados atual.
+- Como é a primeira migração, ele irá gerar instruções SQL para **criar** as tabelas.
+- Serão criados dois arquivos principais:
+  - `xxxx_initial.cs`: contém as instruções para aplicar a migração.
+  - `xxxx_initial.Designer.cs`: contém metadados da migração.
+
+### Pré-requisitos
+
+Antes de rodar esse comando, verifique:
+1. Você está no diretório do projeto `.csproj` correto.
+2. O pacote `Microsoft.EntityFrameworkCore.Design` está instalado.
+3. O `DbContext` está devidamente registrado no `Startup.cs`.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
