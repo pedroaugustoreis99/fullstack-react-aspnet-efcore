@@ -752,6 +752,50 @@ Antes de rodar esse comando, verifique:
 2. O pacote `Microsoft.EntityFrameworkCore.Design` está instalado.
 3. O `DbContext` está devidamente registrado no `Startup.cs`.
 
+## 58. Contexto no Controller
+O comando `dotnet ef database update` aplica todas as **migrações pendentes** ao banco de dados. Ele é usado para atualizar o esquema do banco conforme as alterações definidas nas classes de migração.
+
+### Em resumo:
+- Cria ou atualiza o banco de dados com base nas **migrations** existentes.
+- Executa os scripts de SQL gerados pelas migrações em ordem.
+- Se o banco ainda não existir, ele será criado.
+- Requer uma classe `DbContext` e uma `Migration` criada previamente com `dotnet ef migrations add`.
+
+Na aula 55 o DataContext foi registrado no sistema de injeção de dependência do ASP.NET Core:
+```csharp
+services.AddDbContext<DataContext>(
+    options => options.UseSqlite(Configuration.GetConnectionString("Default"))
+);
+```
+**`AddDbContext<DataContext>()`**: Registra o `DataContext` para ser injetado automaticamente nos controllers e serviços.
+
+### Como usar o `DataContext` no Controller?
+
+Você pode **injeção de dependência** para receber uma instância do `DataContext` automaticamente no seu controller.
+
+### Exemplo: `AtividadeController.cs`
+
+```csharp
+[ApiController]
+[Route("api/[controller]")]
+public class AtividadeController : ControllerBase
+{
+    private readonly DataContext _context;
+
+    public AtividadeController(DataContext context)
+    {
+        _context = context;
+    }
+
+    [HttpGet]
+    public IEnumerable<Atividade> Get()
+    {
+        return _context.Atividades;
+    }
+
+    // Outros métodos (POST, PUT, DELETE) também usam _context
+}
+```
 
 
 
