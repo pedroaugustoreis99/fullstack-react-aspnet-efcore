@@ -797,6 +797,50 @@ public class AtividadeController : ControllerBase
 }
 ```
 
+## 59. Testes e Config Json Converter
+### Configuração no `Startup.cs`
+
+```csharp
+using System.Text.Json.Serialization;
+
+services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
+```
+
+### Explicação:
+- `.AddJsonOptions(...)`: Permite configurar como a serialização e desserialização JSON será feita nos endpoints da API.
+
+- `options.JsonSerializerOptions.Converters.Add(...)`: Adiciona um conversor personalizado ao sistema de serialização.
+
+- `new JsonStringEnumConverter()`: Esse conversor faz com que enums sejam convertidos para **strings** no JSON (ex: `"Ativo"`), em vez de seus valores numéricos padrão (ex: `1`).
+
+### Exemplo de Antes e Depois
+
+#### Enum:
+```csharp
+public enum Status
+{
+    Inativo,
+    Ativo
+}
+```
+
+#### Sem `JsonStringEnumConverter`:
+```json
+{
+    "status": 1
+}
+```
+
+#### Com `JsonStringEnumConverter`:
+```json
+{
+    "status": "Ativo"
+}
+```
 
 
 
