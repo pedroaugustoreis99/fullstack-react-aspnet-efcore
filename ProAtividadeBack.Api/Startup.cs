@@ -42,6 +42,8 @@ namespace ProAtividadeBack.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProAtividadeBack.Api", Version = "v1" });
             });
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +55,8 @@ namespace ProAtividadeBack.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProAtividadeBack.Api v1"));
             }
+
+            app.UseCors(option => option.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000"));
 
             app.UseHttpsRedirection();
 

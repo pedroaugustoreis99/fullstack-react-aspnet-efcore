@@ -842,8 +842,100 @@ public enum Status
 }
 ```
 
+## 63. Cors e Async Await
+CORS (Cross-Origin Resource Sharing) é uma política de segurança do navegador que restringe requisições HTTP feitas de um domínio diferente daquele de onde o recurso se originou.  
+Em APIs, é comum liberar o acesso a partir de outras origens (como aplicações frontend em React, Angular, etc.).
 
+### Trecho no `Startup.cs` — Configuração de Serviços
 
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+  services.AddCors();
+}
+```
+
+Esse comando registra os serviços de CORS no contêiner de injeção de dependência. Ele é obrigatório para que o middleware de CORS possa ser usado posteriormente no pipeline da aplicação.
+
+```csharp
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+  app.UseCors(option =>
+      option.AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:3000"));
+}
+```
+
+#### Explicação:
+
+- `app.UseCors(...)`: Habilita o middleware de CORS com a política definida.
+
+- `option.AllowAnyHeader()`: Permite qualquer cabeçalho HTTP na requisição (ex: `Content-Type`, `Authorization`).
+
+- `option.AllowAnyMethod()`: Permite qualquer método HTTP (GET, POST, PUT, DELETE, etc.).
+
+- `option.WithOrigins("http://localhost:3000")`: Permite apenas requisições originadas da URL `http://localhost:3000`.  
+  Isso é útil, por exemplo, quando o frontend está rodando em React durante o desenvolvimento.
+
+### Instalação do Axios
+
+Para instalar o `axios`, abra o terminal na raiz do seu projeto React e execute:
+
+```bash
+npm install axios
+```
+
+### Criando uma instância do Axios
+
+```javascript
+import axios from 'axios';
+
+export default axios.create({
+    baseURL: "https://localhost:5001/api/"
+});
+```
+
+#### Explicação:
+
+- `axios.create(...)`: Cria uma instância customizada do Axios.
+- `baseURL`: Define a URL base para todas as requisições. Assim, ao chamar `api.get('atividade')`, ele fará a requisição para `https://localhost:5001/api/atividade`.
+- Isso evita repetição de URL em múltiplas requisições e facilita a manutenção do código.
+
+Geralmente, esse código é salvo em um arquivo como `api.js`.
+
+### Exemplo de uso com React Hooks
+
+```javascript
+const [atividades, setAtividades] = useState([]);
+
+const requestAtividades = async () => {
+    const response = await api.get('atividade');
+    return response.data;
+}
+
+useEffect(() => {
+    const getAtividades = async () => {
+        const todasAtividades = await requestAtividades();
+        if (todasAtividades) setAtividades(todasAtividades);
+    }
+    getAtividades();
+}, []);
+```
+
+### Explicação:
+
+#### `const [atividades, setAtividades] = useState([]);`
+- Cria um estado chamado `atividades` inicializado como array vazio.
+- `setAtividades` é a função usada para atualizar esse estado.
+
+#### `requestAtividades`
+- Função assíncrona que faz uma requisição GET para `/atividade` usando a instância `api` do Axios.
+- `response.data` contém os dados retornados pela API.
+
+#### `useEffect(..., [])`
+- O `useEffect` com array de dependências vazio (`[]`) é executado **uma única vez** após o componente ser montado.
+- Dentro dele, é chamada a função `getAtividades` que busca os dados e atualiza o estado.
 
 
 

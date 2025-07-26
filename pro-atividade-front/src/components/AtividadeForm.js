@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+﻿import { useState } from "react";
 
 const atividadeInicial = {
     id: 0,
@@ -9,11 +9,6 @@ const atividadeInicial = {
 
 export default function AtividadeForm(props) {
     const [atv, setAtv] = useState(atividadeAtual());
-
-    useEffect(() => {
-        if (props.atividadeSelecionada.id !== undefined)
-            setAtv(props.atividadeSelecionada);
-    }, [props.atividadeSelecionada]);
 
     function addAtividade(e) {
         e.preventDefault();

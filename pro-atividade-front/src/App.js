@@ -1,24 +1,26 @@
 import './App.css';
-import {useState} from "react";
+import { useState, useEffect } from "react";
 import AtividadeForm from "./components/AtividadeForm";
 import AtividadeLista from "./components/AtividadeLista";
+import api from './api/atividade';
 
 function App() {
-    const [atividades, setAtividades] = useState([
-        {
-            id: 1,
-            prioridade: 1,
-            titulo: "Leitura",
-            descricao: "Ler HQ de the walking dead"
-        },
-        {
-            id: 2,
-            prioridade: 3,
-            titulo: "Assistir o dragão",
-            descricao: "Ir pro Accioly assistir atlético x volta redonda"
-        }
-    ]);
+    const [atividades, setAtividades] = useState([]);
     const [atividadeSelecionada, setAtividadeSelecionada] = useState({});
+
+    const requestAtividades = async () => {
+        const response = await api.get('atividade');
+        return response.data;
+    }
+
+    useEffect(() => {
+        const getAtividades = async () => {
+            const todasAtividades = await requestAtividades();
+            if (todasAtividades) setAtividades(todasAtividades);
+        }
+        getAtividades();
+    }, []);
+
   return (
       <>
           <AtividadeForm
