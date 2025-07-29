@@ -1,4 +1,5 @@
 ﻿import { useState } from "react";
+import api from '../api/atividade';
 
 const atividadeInicial = {
     id: 0,
@@ -10,7 +11,7 @@ const atividadeInicial = {
 export default function AtividadeForm(props) {
     const [atv, setAtv] = useState(atividadeAtual());
 
-    function addAtividade(e) {
+    const addAtividade = async (e) => {
         e.preventDefault();
         const atividade = {
             id: retornaAtividadeId(),
@@ -18,7 +19,9 @@ export default function AtividadeForm(props) {
             titulo: document.getElementById("titulo").value,
             descricao: document.getElementById("descricao").value
         }
-        props.setAtividades([...props.atividades, atividade]);
+        const response = await api.post('atividade', atividade);
+        if (response.status == 201)
+            props.setAtividades([...props.atividades, atividade]);
     }
 
     function atividadeAtual() {

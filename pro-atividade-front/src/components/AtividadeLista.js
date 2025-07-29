@@ -1,24 +1,27 @@
 ﻿export default function AtividadeLista({atividades, atividade, setAtividades, setAtividadeSelecionada}) {
     function retornaPrioridade(prioridade) {
-        const prioridades = {
-            1: {
-                prioridade: "Baixa",
-                icone: "fa-solid fa-face-smile"
-            },
-            2: {
-                prioridade: "Normal",
-                icone: "fa-solid fa-face-meh"
-            },
-            3: {
-                prioridade: "Alta",
-                icone: "fa-solid fa-face-frown-open"
-            }
+        switch (prioridade) {
+            case 1, "Baixa":
+                return {
+                    prioridade: "Baixa",
+                    icone: "fa-solid fa-face-smile"
+                }
+            case 2, "Normal":
+                return {
+                    prioridade: "Normal",
+                    icone: "fa-solid fa-face-meh"
+                }
+            case 3, "Alta":
+                return {
+                    prioridade: "Alta",
+                    icone: "fa-solid fa-face-frown-open"
+                }
+            default:
+                return {
+                    prioridade: "Não definida",
+                    icone: ""
+                }
         }
-        const prioridadeNaoDefinida = {
-            prioridade: "Não definida",
-            icone: ""
-        }
-        return prioridades[prioridade] ?? prioridadeNaoDefinida;
     }
 
     function deletarAtividade(id) {

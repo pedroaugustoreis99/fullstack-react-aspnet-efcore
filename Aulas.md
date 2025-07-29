@@ -937,6 +937,28 @@ useEffect(() => {
 - O `useEffect` com array de dependências vazio (`[]`) é executado **uma única vez** após o componente ser montado.
 - Dentro dele, é chamada a função `getAtividades` que busca os dados e atualiza o estado.
 
+## 66. Adicionando atividade
+
+```javascript
+const addAtividade = async (e) => {
+    e.preventDefault();
+    const atividade = {
+        id: retornaAtividadeId(),
+        prioridade: document.getElementById("prioridade").value,
+        titulo: document.getElementById("titulo").value,
+        descricao: document.getElementById("descricao").value
+    }
+    const response = await api.post('atividade', atividade);
+    if (response.status == 201)
+        props.setAtividades([...props.atividades, atividade]);
+}
+```
+
+Ao utilizar o método `post` do axios no primeiro parâmetro passa o endpoint e o segundo parâmetro é o corpo da requisição
+
+
+
+
 
 
 
