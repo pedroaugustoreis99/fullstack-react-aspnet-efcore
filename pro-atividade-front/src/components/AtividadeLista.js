@@ -1,4 +1,6 @@
-﻿export default function AtividadeLista({atividades, atividade, setAtividades, setAtividadeSelecionada}) {
+﻿import api from '../api/atividade';
+
+export default function AtividadeLista({atividades, atividade, setAtividades, setAtividadeSelecionada}) {
     function retornaPrioridade(prioridade) {
         switch (prioridade) {
             case 1, "Baixa":
@@ -24,9 +26,13 @@
         }
     }
 
-    function deletarAtividade(id) {
-        const atividadesFiltradas = atividades.filter(a => a.id !== id);
-        setAtividades([...atividadesFiltradas]);
+    const deletarAtividade = async (id) => {
+        const response = await api.delete(`atividade/${id}`);
+        if (response.status == 204) {
+            const atividadesFiltradas = atividades.filter(a => a.id !== id);
+            setAtividades([...atividadesFiltradas]);
+        } else
+            alert("Erro ao excluir atividade");
     }
 
     function selecionarAtividade(id) {

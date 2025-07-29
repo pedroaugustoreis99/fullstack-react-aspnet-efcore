@@ -956,6 +956,17 @@ const addAtividade = async (e) => {
 
 Ao utilizar o método `post` do axios no primeiro parâmetro passa o endpoint e o segundo parâmetro é o corpo da requisição
 
+## 69. Deletando atividade
+```javascript
+const deletarAtividade = async (id) => {
+        const response = await api.delete(`atividade/${id}`);
+        if (response.status == 204) {
+            const atividadesFiltradas = atividades.filter(a => a.id !== id);
+            setAtividades([...atividadesFiltradas]);
+        } else
+            alert("Erro ao excluir atividade");
+    }
+```
 
 
 
