@@ -1,19 +1,24 @@
 ﻿import api from '../api/atividade';
 
-export default function AtividadeLista({atividades, atividade, setAtividades, setAtividadeSelecionada}) {
+export default function AtividadeLista({
+    atividades,
+    atividade,
+    setAtividades,
+    setAtividadeForm
+}) {
     function retornaPrioridade(prioridade) {
         switch (prioridade) {
-            case 1, "Baixa":
+            case 1:
                 return {
                     prioridade: "Baixa",
                     icone: "fa-solid fa-face-smile"
                 }
-            case 2, "Normal":
+            case 2:
                 return {
                     prioridade: "Normal",
                     icone: "fa-solid fa-face-meh"
                 }
-            case 3, "Alta":
+            case 3:
                 return {
                     prioridade: "Alta",
                     icone: "fa-solid fa-face-frown-open"
@@ -25,7 +30,7 @@ export default function AtividadeLista({atividades, atividade, setAtividades, se
                 }
         }
     }
-
+    
     const deletarAtividade = async (id) => {
         const response = await api.delete(`atividade/${id}`);
         if (response.status == 204) {
@@ -36,8 +41,8 @@ export default function AtividadeLista({atividades, atividade, setAtividades, se
     }
 
     function selecionarAtividade(id) {
-        const atividade = atividades.filter(a => a.id === id);
-        setAtividadeSelecionada(...atividade);
+        const atividade = atividades.find(a => a.id === id);
+        setAtividadeForm(atividade);
     }
 
     return (

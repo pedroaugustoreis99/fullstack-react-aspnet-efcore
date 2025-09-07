@@ -6,7 +6,7 @@ import api from './api/atividade';
 
 function App() {
     const [atividades, setAtividades] = useState([]);
-    const [atividadeSelecionada, setAtividadeSelecionada] = useState({});
+    const [atividadeForm, setAtividadeForm] = useState({});
 
     const requestAtividades = async () => {
         const response = await api.get('atividade');
@@ -26,8 +26,8 @@ function App() {
           <AtividadeForm
             atividades={atividades}
             setAtividades={setAtividades}
-            atividadeSelecionada={atividadeSelecionada}
-            setAtividadeSelecionada={setAtividadeSelecionada}
+            atividadeForm={atividadeForm}
+            setAtividadeForm={setAtividadeForm}
           />
 
           {atividades.map(atividade => (
@@ -36,7 +36,7 @@ function App() {
                 atividades={atividades}
                 atividade={atividade}
                 setAtividades={setAtividades}
-                setAtividadeSelecionada={setAtividadeSelecionada}
+                setAtividadeForm={setAtividadeForm}
               />
           ))}
       </>

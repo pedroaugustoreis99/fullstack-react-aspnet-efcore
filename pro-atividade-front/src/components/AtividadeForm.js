@@ -1,71 +1,49 @@
-﻿import { useState } from "react";
-import api from '../api/atividade';
+﻿import api from '../api/atividade';
 
-const atividadeInicial = {
-    id: 0,
-    titulo: '',
-    prioridade: 0,
-    descricao: ''
-}
-
-export default function AtividadeForm(props) {
-    const [atv, setAtv] = useState(atividadeAtual());
-
+export default function AtividadeForm({
+    atividades,
+    setAtividades,
+    atividadeForm,
+    setAtividadeForm
+}) {
     const addAtividade = async (e) => {
         e.preventDefault();
-        const atividade = {
-            id: retornaAtividadeId(),
-            prioridade: document.getElementById("prioridade").value,
-            titulo: document.getElementById("titulo").value,
-            descricao: document.getElementById("descricao").value
-        }
-        const response = await api.post('atividade', atividade);
-        if (response.status == 201)
-            props.setAtividades([...props.atividades, atividade]);
-    }
+        
+        atividadeForm.prioridade = parseInt(atividadeForm.prioridade);
 
-    function atividadeAtual() {
-        if (props.atividadeSelecionada.id !== undefined) {
-            return props.atividadeSelecionada;
-        } else {
-            return atividadeInicial;
-        }
-    }
-
-    function retornaAtividadeId() {
-        const todosOsIds = props.atividades.map(a => a.id);
-        if (todosOsIds.length === 0) {
-            return 1;
-        } else {
-            const maiorId = Math.max(...todosOsIds);
-            return maiorId + 1;
-        }
+        console.log(atividadeForm);
+        const response = await api.post('atividade', atividadeForm);
+        if (response.status == 201) 
+            setAtividades([...atividades, response.data]);
+        setAtividadeForm({});
+            
     }
 
     function inputTextHandler(e) {
         const {name, value} = e.target;
-        setAtv({...atv, [name]: value});
+        setAtividadeForm({...atividadeForm, [name]: value});
     }
 
     function handleCancelar() {
-        setAtv(atividadeInicial);
-        props.setAtividadeSelecionada({});
+        setAtividadeForm({});
     }
 
-    function handleSalvarEdicao(e) {
+    const handleSalvarEdicao = async (e) => {
         e.preventDefault();
-        props.setAtividades(props.atividades.map(a => a.id === atv.id ? atv : a));
-        setAtv(atividadeInicial);
-        props.setAtividadeSelecionada({});
+
+        const response = await api.put(`atividade/${atividadeForm.id}`, atividadeForm);
+
+        setAtividades(atividades.map(a => a.id === atividadeForm.id ? atividadeForm : a));
+        setAtividadeForm({});
     }
 
     return (
         <form className="row g-3 mb-2">
             <div className="col-sm-9">
-                <input type="text" id="titulo" name="titulo" onChange={inputTextHandler} value={atv.titulo} className="form-control" placeholder="Título"/>
+                <input type="text" id="titulo" name="titulo" onChange={inputTextHandler} value={atividadeForm.titulo ?? ''} className="form-control" placeholder="Título"/>
             </div>
             <div className="col-sm-3">
-                <select id="prioridade" name="prioridade" onChange={inputTextHandler} value={atv.prioridade} className="form-select">
+                <select id="prioridade" name="prioridade" onChange={inputTextHandler} value={atividadeForm.prioridade ?? 0} className="form-select">
                     <option defaultValue="0">Selecione a prioridade</option>
                     <option value="1">Baixa</option>
                     <option value="2">Normal</option>
@@ -73,11 +51,11 @@ export default function AtividadeForm(props) {
                 </select>
             </div>
             <div className="col-sm-12">
-                <textarea type="text" id="descricao" name="descricao" onChange={inputTextHandler} value={atv.descricao} className="form-control" placeholder="Descrição"></textarea>
+                <textarea type="text" id="descricao" name="descricao" onChange={inputTextHandler} value={atividadeForm.descricao ?? ''} className="form-control" placeholder="Descrição"></textarea>
             </div>
             <div className="col-12 d-flex justify-content-end">
                 {
-                    atv.id == 0 ?
+                    atividadeForm.id === undefined ?
                         <button onClick={addAtividade} className="btn btn-outline-success"><i className="fas fa-plus me-2"></i>Adicionar</button> :
                         <>
                             <button onClick={handleSalvarEdicao} className="btn btn-outline-success me-2"><i className="fas fa-plus me-2"></i>Salvar</button>

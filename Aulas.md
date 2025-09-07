@@ -968,6 +968,17 @@ const deletarAtividade = async (id) => {
     }
 ```
 
+## 70. Atualizando Atividade
+```javascript
+const handleSalvarEdicao = async (e) => {
+    e.preventDefault();
+
+    const response = await api.put(`atividade/${atividadeForm.id}`, atividadeForm);
+
+    setAtividades(atividades.map(a => a.id === atividadeForm.id ? atividadeForm : a));
+    setAtividadeForm({});
+}
+```
 
 
 
