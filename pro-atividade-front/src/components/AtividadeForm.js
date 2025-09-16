@@ -4,19 +4,20 @@ export default function AtividadeForm({
     atividades,
     setAtividades,
     atividadeForm,
-    setAtividadeForm
+    setAtividadeForm,
+    handleModalAtividadeClose
 }) {
     const addAtividade = async (e) => {
         e.preventDefault();
         
         atividadeForm.prioridade = parseInt(atividadeForm.prioridade);
 
-        console.log(atividadeForm);
         const response = await api.post('atividade', atividadeForm);
         if (response.status == 201) 
             setAtividades([...atividades, response.data]);
         setAtividadeForm({});
             
+        handleModalAtividadeClose();
     }
 
     function inputTextHandler(e) {
@@ -24,8 +25,14 @@ export default function AtividadeForm({
         setAtividadeForm({...atividadeForm, [name]: value});
     }
 
+    function inputNumberHandle(e) {
+        const {name, value} = e.target;
+        setAtividadeForm({...atividadeForm, [name]: parseInt(value)});
+    }
+
     function handleCancelar() {
         setAtividadeForm({});
+        handleModalAtividadeClose();
     }
 
     const handleSalvarEdicao = async (e) => {
@@ -35,6 +42,7 @@ export default function AtividadeForm({
 
         setAtividades(atividades.map(a => a.id === atividadeForm.id ? atividadeForm : a));
         setAtividadeForm({});
+        handleModalAtividadeClose();
     }
 
     return (
@@ -43,7 +51,7 @@ export default function AtividadeForm({
                 <input type="text" id="titulo" name="titulo" onChange={inputTextHandler} value={atividadeForm.titulo ?? ''} className="form-control" placeholder="Título"/>
             </div>
             <div className="col-sm-3">
-                <select id="prioridade" name="prioridade" onChange={inputTextHandler} value={atividadeForm.prioridade ?? 0} className="form-select">
+                <select id="prioridade" name="prioridade" onChange={inputNumberHandle} value={atividadeForm.prioridade ?? 0} className="form-select">
                     <option defaultValue="0">Selecione a prioridade</option>
                     <option value="1">Baixa</option>
                     <option value="2">Normal</option>

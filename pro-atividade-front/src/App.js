@@ -3,8 +3,17 @@ import { useState, useEffect } from "react";
 import AtividadeForm from "./components/AtividadeForm";
 import AtividadeLista from "./components/AtividadeLista";
 import api from './api/atividade';
+import { Button, Modal } from 'react-bootstrap';
 
 function App() {
+    const [showAtividadeModal, setAtividadeModalShow] = useState(false);
+
+    const handleModalAtividadeShow = () => setAtividadeModalShow(true);
+    const handleModalAtividadeClose = () => {
+        setAtividadeModalShow(false);
+        setAtividadeForm({});
+    }
+
     const [atividades, setAtividades] = useState([]);
     const [atividadeForm, setAtividadeForm] = useState({});
 
@@ -23,22 +32,54 @@ function App() {
 
   return (
       <>
-          <AtividadeForm
-            atividades={atividades}
-            setAtividades={setAtividades}
-            atividadeForm={atividadeForm}
-            setAtividadeForm={setAtividadeForm}
-          />
+          <Button 
+              variant="outline-primary" 
+              size="lg"
+              className="mb-4 px-4 py-2 d-block mx-auto"
+              onClick={handleModalAtividadeShow}
+          >
+              <i className="fas fa-plus-circle me-2"></i>
+              Nova Atividade
+          </Button>
 
-          {atividades.map(atividade => (
-              <AtividadeLista
-                key={atividade.id}
-                atividades={atividades}
-                atividade={atividade}
-                setAtividades={setAtividades}
-                setAtividadeForm={setAtividadeForm}
-              />
-          ))}
+          <Modal show={showAtividadeModal} onHide={handleModalAtividadeClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>
+                  {atividadeForm.id === undefined ? (
+                    <>
+                        <i className="fas fa-plus-circle me-2 text-primary"></i>
+                        Criar Nova Atividade
+                    </>
+                  ) : (
+                    <>Editar atividade {atividadeForm.id}</>
+                  )}
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <AtividadeForm
+                    atividades={atividades}
+                    setAtividades={setAtividades}
+                    atividadeForm={atividadeForm}
+                    setAtividadeForm={setAtividadeForm}
+                    handleModalAtividadeClose={handleModalAtividadeClose}
+                />
+              </Modal.Body>
+          </Modal>
+
+          {atividades.length !== 0 ? (
+              atividades.map(atividade => (
+                  <AtividadeLista
+                      key={atividade.id}
+                      atividades={atividades}
+                      atividade={atividade}
+                      setAtividades={setAtividades}
+                      setAtividadeForm={setAtividadeForm}
+                      handleModalAtividadeShow={handleModalAtividadeShow}
+                  />
+              ))
+          ) : (
+              <p className='text-center'>Nenhuma atividade cadastrada</p>
+          )}
       </>
   );
 }
