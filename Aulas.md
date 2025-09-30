@@ -980,6 +980,22 @@ const handleSalvarEdicao = async (e) => {
 }
 ```
 
+## 82. Solution e Projetos
+Um arquivo de solução no .NET (extensão .sln) é um arquivo de texto que organiza um conjunto de projetos (.csproj). Ele também define configurações de build.
+
+Comando para criar um arquivo de solução
+```bash
+dotnet new sln -n NomeDaSolucao
+```
+
+Comando para criar um projeto
+```bash
+dotnet new classlib -n NomeDoProjeto
+```
+classlib é um tipo de projeto que possui código reutilizável por outros projetos.
+
+
+
 
 
 
