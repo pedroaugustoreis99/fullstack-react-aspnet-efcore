@@ -994,8 +994,23 @@ dotnet new classlib -n NomeDoProjeto
 ```
 classlib é um tipo de projeto que possui código reutilizável por outros projetos.
 
+## 83. Referência dos projetos
+Comando para adicionar um projeto a solução
+```bash
+dotnet sln NomeDaSolucao.sln add /PastaDoProjeto/NomeDoProjeto.csproj
+```
 
+obs: no caso acima o arquivo .csproj está dentro de uma pasta juntamente com os arquivos do projeto. Caso esse seja o unico arquivo .csproj da pasta pode apenas passar o nome da pasta conforme o comando abaixo:
 
+```bash
+dotnet sln NomeDaSolucao.sln add PastaDoProjeto
+```
+
+Para utilizar os tipos e funcionalidades de um projeto do tipo classlib é criar uma referencia entre projetos do tipo P2P, ou seja referência de projeto para projeto.
+```bash
+dotnet add ProjetoApi reference ProjetoClassLib
+```
+No comando acima o ProjetoApi é o projeto que vai utilizar os tipos e funcionalidades do ProjetoClassLib
 
 
 
